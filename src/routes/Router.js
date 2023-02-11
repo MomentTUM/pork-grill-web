@@ -1,20 +1,44 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import RedirectifAuthenticate from "../features/auth/RedirectifAuthenticate"
+import ProtectedRouteAdmin from "../features/auth/ProtectedRouteAdmin"
 import AdminPage from "../pages/AdminPage"
-import CategoryPage from "../pages/CategoryPage"
-import FoodPage from "../pages/FoodPage"
 import LoginPage from "../pages/LoginPage"
-import OrderPage from "../pages/Order"
-import PaymentPage from "../pages/Payment"
+import CustomerPage from "../pages/Customer"
+import { Navigate } from "react-router-dom"
+import ProtectedRouteCustomer from "../features/auth/ProtectedRouteCustomer"
+// import FoodPage from "../pages/FoodPage"
+// import OrderPage from "../pages/Order"
+// import PaymentPage from "../pages/Payment"
 
 const router = createBrowserRouter([
-  { path: "/login", element: <LoginPage /> },
-  { path: "/", element: <CategoryPage /> },
-  { path: "/food", element: <FoodPage /> },
-  { path: "/order", element: <OrderPage /> },
-  { path: "/payment", element: <PaymentPage /> },
-  { path: "/admin", element: <AdminPage /> },
-  { path: "/admin/order", element: <OrderPage /> },
-  { path: "/admin/payment", element: <PaymentPage /> },
+  {
+    path: "/login",
+    element: (
+      <RedirectifAuthenticate>
+        <LoginPage />
+      </RedirectifAuthenticate>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRouteAdmin>
+        <AdminPage />
+      </ProtectedRouteAdmin>
+    ),
+  },
+  {
+    path: "/Customer",
+    element: (
+      <ProtectedRouteCustomer>
+        <CustomerPage />
+      </ProtectedRouteCustomer>
+    ),
+  },
+  {
+    path: "*",
+    element: <Navigate to={"/login"} />,
+  },
 ])
 export default function Router() {
   return <RouterProvider router={router} />
