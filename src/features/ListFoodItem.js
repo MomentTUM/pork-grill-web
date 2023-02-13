@@ -7,11 +7,14 @@ export default function ListFoodItem(props) {
   // const [amount, setAmount] = useState(555)
   // const [amountList, setAmountList] = useState({1: {amount: 20, currentPrice: 2000}});
   const [amountList, setAmountList] = useState([])
+  // useEffect(() => {
+  //   setAmountList(foodList.map(el => ({1: {  ...el,amount: 20, currentPrice: 2000}})))
+  // }, [foodList])
   useEffect(() => {
     setAmountList(foodList.map(el => ({ ...el, amount: 0 })))
   }, [foodList])
 
-  const tempAmountList = [...foodList]
+  // const tempAmountList = [...foodList]
   // foodList.forEach(el => {
   //   // console.log(tempAmountList)
 
@@ -44,7 +47,7 @@ export default function ListFoodItem(props) {
             </tr>
           </thead>
           <tbody>
-            {foodList?.map(el => (
+            {foodList?.map((el, idx) => (
               <tr
                 className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}
                 key={el.id}
@@ -63,6 +66,23 @@ export default function ListFoodItem(props) {
                     <button
                       onClick={() => {
                         setAmountList(prev => {
+                          const cloned =[ ...prev]
+                          if (cloned[idx].amount <= 0) {
+                            return prev
+                          }
+                          cloned[idx].amount -= 1
+                          return cloned
+                        })
+                      }}
+                      className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
+                      type='button'
+                    >
+                    {/* <button
+                      onClick={() => {
+                        setAmountList(prev => {
+                          // if (prev[el.id].amount >= 1) {
+                          //   return prev
+                          // }
                           if (prev[el.id]) {
                             return {
                               ...prev,
@@ -78,7 +98,7 @@ export default function ListFoodItem(props) {
                       }}
                       className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
                       type='button'
-                    >
+                    > */}
                       <span className='sr-only'>Quantity button</span>
                       <svg
                         className='w-4 h-4'
@@ -95,29 +115,18 @@ export default function ListFoodItem(props) {
                       </svg>
                     </button>
                     <div
-                      // value={amount}
-                      // onChange={e => amount(e.target.value)}
                       className='bg-gray-50 w-14 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                     >
-                      {amountList[el.id]?.amount}
+                      {amountList[idx]?.amount}
                     </div>
                     <button
-                      onClick={() => {
-                        setAmountList(prev => {
-                          if (prev[el.id]) {
-                            return {
-                              ...prev,
-                              [el.id]: {
-                                ...prev[el.id],
-                                amount: prev[el.id].amount + 1,
-                              },
-                            }
-                          } else {
-                            return { ...prev, [el.id]: { amount: 1 } }
-                          }
-                        })
-                      }}
-                      // onClick={() => {}}
+                    onClick={() => {
+                      setAmountList(prev => {
+                        const cloned =[ ...prev]
+                        cloned[idx].amount += 1
+                        return cloned
+                      })
+                    }}
                       className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
                       type='button'
                     >
@@ -139,7 +148,7 @@ export default function ListFoodItem(props) {
                   </div>
                 </td>
                 <td className='px-6 py-4 text-center font-semibold text-gray-900 dark:text-white'>
-                  {0}
+                  {el.currentPrice}
                 </td>
               </tr>
             ))}
