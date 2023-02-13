@@ -10,9 +10,9 @@ function App() {
       {loading && <Spinner />}
       <Router />
       <ToastContainer
-        position="bottom-center"
+        position="bottom-right"
         transition={Flip}
-        autoClose={300}
+        autoClose={1000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick

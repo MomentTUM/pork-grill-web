@@ -22,7 +22,6 @@ export default function AuthContextProvider({ children }) {
       try {
         const res = await authApi.getMe()
         setAuthenticatedAdmin(res.data.user)
-        // console.log(localStorage.getItem("accessToken"))
       } catch (error) {
         console.log(error)
         removeAccessAdminToken()
@@ -41,7 +40,6 @@ export default function AuthContextProvider({ children }) {
       try {
         // const res = await authApi.getMe()
         setauthenticatedCustomer(JwtDecode(getCustomerAccessToken()))
-        // console.log(localStorage.getItem("accessToken"))
       } catch (error) {
         console.log(error)
         removeAccessCustomerToken()
@@ -54,14 +52,12 @@ export default function AuthContextProvider({ children }) {
 
   const loginAdmin = async (username, password) => {
     const res = await authApi.login({ username, password })
-    // console.log(res.data.accessToken)
     setAccessAdminToken(res.data.accessToken)
     setAuthenticatedAdmin(JwtDecode(res.data.accessToken))
   }
 
   const loginCustomer = async (input) => {
     const res = await authApi.loginCustomer( input )
-    // console.log(res.data.accessToken)
     setAccessCustomerToken(res.data.accessToken)
     setauthenticatedCustomer(JwtDecode(res.data.accessToken))
   }

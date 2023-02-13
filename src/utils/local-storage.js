@@ -1,6 +1,6 @@
-const ACCESS_Admin_TOKEN = "ACCESS_TOKEN"
+const ACCESS_Admin_TOKEN = "ACCESS_ADMIN_TOKEN"
 
-const ACCESS_CUSTOMER_TOKEN = "ACCESS_TOKEN"
+const ACCESS_CUSTOMER_TOKEN = "ACCESS_CUSTOMER_TOKEN"
 
 export const getAdminAccessToken = () =>
   localStorage.getItem(ACCESS_Admin_TOKEN)

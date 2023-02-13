@@ -35,7 +35,7 @@ export default function AdminPage() {
           >
             Register Customer
           </button>
-          <Offcavas>
+          <Offcavas title='Register Customer Form'>
             <RegisterCustomer />
           </Offcavas>
           <Button title='Sign out' onClick={logoutAdmin} />
