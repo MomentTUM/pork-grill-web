@@ -6,9 +6,8 @@ import LoginPage from "../pages/LoginPage"
 import CustomerPage from "../pages/Customer"
 import { Navigate } from "react-router-dom"
 import ProtectedRouteCustomer from "../features/auth/ProtectedRouteCustomer"
-// import FoodPage from "../pages/FoodPage"
 import OrderPage from "../pages/Order"
-// import PaymentPage from "../pages/Payment"
+import PaymentPage from "../pages/Payment"
 
 const router = createBrowserRouter([
   {
@@ -35,11 +34,19 @@ const router = createBrowserRouter([
       </ProtectedRouteCustomer>
     ),
   },
+  // {
+  //   path: "/Order",
+  //   element: (
+  //     <ProtectedRouteCustomer>
+  //       <OrderPage />
+  //     </ProtectedRouteCustomer>
+  //   ),
+  // },
   {
-    path: "/Order",
+    path: "/Payment",
     element: (
       <ProtectedRouteCustomer>
-        <OrderPage />
+        <PaymentPage />
       </ProtectedRouteCustomer>
     ),
   },

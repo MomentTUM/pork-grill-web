@@ -7,16 +7,16 @@ import Card from "../components/Card"
 import Offcavas from "../components/Offcanvas"
 import ListFoodItem from "../features/ListFoodItem"
 import { Link } from "react-router-dom"
-// import { toast } from "react-toastify"
-// import useLoading from "../hooks/useLoading"
-
-
+import * as cartApi from "../apis/cart-api"
+import useCart from "../hooks/useCart"
+import { toast } from "react-toastify"
 
 export default function CategoryPage() {
   const { logoutCustomer } = useAuth()
   const [category, setCategory] = useState([])
   const [showCategory, setShowCategory] = useState("")
   const [foodList, setFoodList] = useState([])
+  const { cart } = useCart()
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -42,6 +42,16 @@ export default function CategoryPage() {
     fetchFoodList()
   }, [showCategory])
 
+  const handleSubmitCart = async e => {
+    try {
+      e.preventDefault()
+      await cartApi.addFoodCart(cart)
+      toast.success("ส่งรายการอาหารสำเร็จ")
+    } catch (err) {
+      toast.error(err.message)
+    }
+  }
+
   return (
     <>
       <BoxItem>
@@ -49,7 +59,9 @@ export default function CategoryPage() {
           รายการอาหาร
           <div className='w-32 ml-96 mb-1'>
             <Link to='/Order'>
-              <Button title='สรุปรายการอาหาร' />
+              <Button 
+              // onClick={handleSubmitCart}
+              title='สรุปรายการอาหาร' />
             </Link>
           </div>
         </div>

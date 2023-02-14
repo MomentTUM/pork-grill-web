@@ -1,32 +1,51 @@
 import React from "react"
 import Button from "../components/Button"
 import { useState, useEffect } from "react"
+import useCart from "../hooks/useCart"
+import useAuth from "../hooks/useAuth"
+import { toast } from "react-toastify"
 
 export default function ListFoodItem(props) {
   const { foodList } = props
-  // const [amount, setAmount] = useState(555)
-  // const [amountList, setAmountList] = useState({1: {amount: 20, currentPrice: 2000}});
   const [amountList, setAmountList] = useState([])
-  // useEffect(() => {
-  //   setAmountList(foodList.map(el => ({1: {  ...el,amount: 20, currentPrice: 2000}})))
-  // }, [foodList])
+
   useEffect(() => {
     setAmountList(foodList.map(el => ({ ...el, amount: 0 })))
   }, [foodList])
 
-  // const tempAmountList = [...foodList]
-  // foodList.forEach(el => {
-  //   // console.log(tempAmountList)
-
-  //   tempAmountList.push({id: el.id, amount: 0})
-  //   // setAmountList(tempAmountList)
-  // });
-  // console.log(tempAmountList);
+  const { authenticatedCustomer } = useAuth()
+  const { setCart } = useCart()
+  const handleClickCart = async e => {
+    try {
+      e.preventDefault()
+      const filterAmount = amountList.filter(el => el.amount > 0)
+      const dataToCart = {
+        userId: authenticatedCustomer.id,
+        dateOrder: new Date(),
+        cartsItem: [...filterAmount],
+      }
+      console.log(dataToCart)
+      setCart(prev => {
+        if (!prev.userId) {
+           return (dataToCart)
+        } else
+        return {
+          ...prev,
+          cartsItem: [...prev.cartsItem, ...dataToCart.cartsItem],
+        }
+      }
+      )
+      // await cartApi.addFoodCart(result)
+      toast.success("หยิบใส่ตะกร้าสำเร็จ")
+    } catch (err) {
+      toast.error(err.message)
+    }
+  }
 
   return (
     <>
       <div className='w-32 mb-1'>
-        <Button title='หยิบใส่ตะกร้า' />
+        <Button onClick={handleClickCart} title='หยิบใส่ตะกร้า' />
       </div>
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
         <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
@@ -66,7 +85,7 @@ export default function ListFoodItem(props) {
                     <button
                       onClick={() => {
                         setAmountList(prev => {
-                          const cloned =[ ...prev]
+                          const cloned = [...prev]
                           if (cloned[idx].amount <= 0) {
                             return prev
                           }
@@ -77,28 +96,6 @@ export default function ListFoodItem(props) {
                       className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
                       type='button'
                     >
-                    {/* <button
-                      onClick={() => {
-                        setAmountList(prev => {
-                          // if (prev[el.id].amount >= 1) {
-                          //   return prev
-                          // }
-                          if (prev[el.id]) {
-                            return {
-                              ...prev,
-                              [el.id]: {
-                                ...prev[el.id],
-                                amount: prev[el.id].amount - 1,
-                              },
-                            }
-                          } else {
-                            return { ...prev, [el.id]: { amount: 1 } }
-                          }
-                        })
-                      }}
-                      className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
-                      type='button'
-                    > */}
                       <span className='sr-only'>Quantity button</span>
                       <svg
                         className='w-4 h-4'
@@ -114,19 +111,17 @@ export default function ListFoodItem(props) {
                         ></path>
                       </svg>
                     </button>
-                    <div
-                      className='bg-gray-50 w-14 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    >
+                    <div className='bg-gray-50 w-14 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
                       {amountList[idx]?.amount}
                     </div>
                     <button
-                    onClick={() => {
-                      setAmountList(prev => {
-                        const cloned =[ ...prev]
-                        cloned[idx].amount += 1
-                        return cloned
-                      })
-                    }}
+                      onClick={() => {
+                        setAmountList(prev => {
+                          const cloned = [...prev]
+                          cloned[idx].amount += 1
+                          return cloned
+                        })
+                      }}
                       className='inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700'
                       type='button'
                     >
