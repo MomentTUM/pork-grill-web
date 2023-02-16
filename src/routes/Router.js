@@ -6,7 +6,7 @@ import LoginPage from "../pages/LoginPage"
 import CustomerPage from "../pages/Customer"
 import { Navigate } from "react-router-dom"
 import ProtectedRouteCustomer from "../features/auth/ProtectedRouteCustomer"
-import OrderPage from "../pages/Order"
+// import OrderPage from "../pages/Order"
 import PaymentPage from "../pages/Payment"
 
 const router = createBrowserRouter([

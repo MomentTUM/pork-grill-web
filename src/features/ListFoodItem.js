@@ -15,6 +15,7 @@ export default function ListFoodItem(props) {
 
   const { authenticatedCustomer } = useAuth()
   const { setCart } = useCart()
+  
   const handleClickCart = async e => {
     try {
       e.preventDefault()
@@ -24,7 +25,6 @@ export default function ListFoodItem(props) {
         dateOrder: new Date(),
         cartsItem: [...filterAmount],
       }
-      console.log(dataToCart)
       setCart(prev => {
         if (!prev.userId) {
            return (dataToCart)
@@ -33,9 +33,7 @@ export default function ListFoodItem(props) {
           ...prev,
           cartsItem: [...prev.cartsItem, ...dataToCart.cartsItem],
         }
-      }
-      )
-      // await cartApi.addFoodCart(result)
+      })
       toast.success("หยิบใส่ตะกร้าสำเร็จ")
     } catch (err) {
       toast.error(err.message)

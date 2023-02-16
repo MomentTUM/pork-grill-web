@@ -1,7 +1,25 @@
+import { useState, useEffect } from "react"
+import axios from "../config/axios-customer"
 import BoxItem from "../Layouts/BoxItem"
 import Button from "../components/Button"
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentPage() {
+  const [orderList, setOrderList] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchOrderList = async () => {
+      try {
+        const res = await axios.get("/cart/getOrder")
+        setOrderList(res.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchOrderList()
+  }, [])
+
   return (
     <>
       <BoxItem>
@@ -33,26 +51,29 @@ export default function PaymentPage() {
               </tr>
             </thead>
             <tbody>
-              {/* {foodList?.map((el, idx) => ( */}
-              <tr
-                className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}
-                // key={el.id}
-              >
-                <td className='px-6 py-4 font-semibold'>
-                  {/* product */}
+              {orderList?.map(el => (
+                <tr
+                  className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600`}
+                  key={el.id}
+                >
+                  <td className='px-6 py-4 font-semibold'>
+                    {el.name}
                   </td>
-                <td className='px-6 py-4 text-right'>
-                  {/* amount */}
+                  <td className='px-6 py-4 text-right'>
+                    {el.amount}
                   </td>
-                <td className='px-6 py-4 text-right'>
-                  {/* price */}
-                  </td>
-              </tr>
-              {/* ))} */}
+                  <td className='px-6 py-4 text-right'>{el.price}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <Button title='อัพโหลดสลิปชำระเงิน' />
+        <Button 
+        onClick={()=>{}}
+        title='ชำระเงิน' />
+        <Button 
+        onClick={()=>{navigate("/Customer")}}
+        title='กลับไปหน้าสั่งอาหาร' />
       </BoxItem>
     </>
   )

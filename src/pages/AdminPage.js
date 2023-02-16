@@ -31,7 +31,6 @@ export default function AdminPage() {
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvas'
             aria-controls='offcanvas'
-            // onClick={() => setOpen(true)}
           >
             Register Customer
           </button>

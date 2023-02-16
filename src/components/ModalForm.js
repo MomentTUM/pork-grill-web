@@ -21,7 +21,7 @@ export default function ModalForm(props) {
             <h1 className='text-3xl font-bold text-rose-700'>
               {title}
             </h1>
-            <div className="text-rose-900">{`กรุณากรอกแบบฟอร์มนี้ ${title}`}</div>
+            {/* <div className="text-rose-900">{`กรุณากรอกแบบฟอร์มนี้ ${title}`}</div> */}
           </div>
           <hr className='h-px my-4 bg-gray-200 border-0 dark:bg-gray-700' />
 
