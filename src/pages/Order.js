@@ -14,6 +14,7 @@ export default function OrderPage() {
     } catch (err) {
       toast.error(err.message)
     } finally {
+      
       setCart('')
     }
   }

@@ -47,11 +47,14 @@ export default function CategoryPage() {
       <BoxItem>
         <div className=' flex justify-end text-2xl font-bold tracking-tight text-center text-gray-900 dark:text-white'>
           รายการอาหาร
-          <div className='w-32 ml-96 mb-1'>
-            <Button
+          <div className='w-32 ml-96 mb-1 relative'>
+           <div className="absolute right-0">
+           <Button
               onClick={() => setOpen(true)}
               title='สรุปรายการอาหาร'
+              size="h-8 w-52"
             />
+           </div>
             <ModalForm
               open={open}
               title='สรุปรายการ'
@@ -73,7 +76,7 @@ export default function CategoryPage() {
           setShowCategory={setShowCategory}
         />
         {/* <Button title='Sign out' onClick={logoutCustomer} /> */}
-        <Button title='Payment' onClick={()=>{navigate("/Payment")}} />
+        <Button title='ชำระเงิน' onClick={()=>{navigate("/Payment")}} size='h-8 w-full' />
       </BoxItem>
     </>
   )

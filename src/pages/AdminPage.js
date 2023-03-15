@@ -3,8 +3,15 @@ import Offcavas from "../components/Offcanvas"
 import { Link } from "react-router-dom"
 import Button from "../components/Button"
 import useAuth from "../hooks/useAuth"
+import { useNavigate } from "react-router-dom"
 
 export default function AdminPage() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(
+      "/managePayment"
+    );
+  };
   const { logoutAdmin, authenticatedAdmin } = useAuth()
   return (
     <section className='bg-gray-50 dark:bg-gray-900'>
@@ -25,8 +32,9 @@ export default function AdminPage() {
           </div>
         </Link>
         <div className='rounded-lg w-4/5 p-10 pt-4 max-w-sm py-3 mx-auto dark:bg-gray-800'>
+          <div className="flex flex-col gap-1">
           <button
-            className='w-full inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg  focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+            className='h-8 w-72 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-indigo-100 border border-[#ad4841] rounded-sm shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-[#ad4841] via-rose-700 to-rose-600'
             type='button'
             data-bs-toggle='offcanvas'
             data-bs-target='#offcanvas'
@@ -34,10 +42,13 @@ export default function AdminPage() {
           >
             Register Customer
           </button>
+          <Button title='Payment' onClick={handleClick} size='h-8 w-72'/>
+          
+          <Button title='Sign out' onClick={logoutAdmin} size='h-8 w-72' />
           <Offcavas title='Register Customer Form'>
             <RegisterCustomer />
           </Offcavas>
-          <Button title='Sign out' onClick={logoutAdmin} />
+          </div>
         </div>
       </div>
     </section>

@@ -43,7 +43,7 @@ export default function ListFoodItem(props) {
   return (
     <>
       <div className='w-32 mb-1'>
-        <Button onClick={handleClickCart} title='หยิบใส่ตะกร้า' />
+        <Button onClick={handleClickCart} title='หยิบใส่ตะกร้า' size='h-8 w-52'/>
       </div>
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
         <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>

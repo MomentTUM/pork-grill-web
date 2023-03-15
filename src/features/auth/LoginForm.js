@@ -9,10 +9,10 @@ export default function LoginForm() {
   return (
     <>
       <LoginFormCustomer />
-      <div className='text-sm font-light text-gray-700 dark:text-gray-600'>
+      <div className='mt-2 text-sm font-light text-gray-700 dark:text-gray-600 select-none'>
         พนักงาน{" : "}
         <span
-          className='font-medium text-primary-900 hover:underline dark:text-primary-800'
+          className='font-medium text-primary-900 hover:underline dark:text-primary-800 cursor-pointer'
           onClick={() => setOpen(true)}
         >
           เข้าสู่ระบบ

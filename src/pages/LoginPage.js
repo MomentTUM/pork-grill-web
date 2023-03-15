@@ -1,10 +1,18 @@
 import LoginForm from "../features/auth/LoginForm"
+import image from "../assets/presentation-of-thai-cooking1.jpg"
 
 import { Link } from "react-router-dom"
 export default function LoginPage() {
   return (
-    <section className='bg-gray-50 dark:bg-gray-900'>
-      <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+    <section className=''>
+      <div className="fixed -z-10 h-screen w-screen ">
+          <img
+            className="w-full h-full object-cover"
+            src={image}
+            alt=""
+          />
+        </div>
+      <div className='flex flex-col z-10 absolute inset-x-5 -inset-y-10 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 backdrop-blur-sm'>
         <Link
           to={"/login"}
           className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'

@@ -4,7 +4,7 @@ export default function ModalForm(props) {
   const { children, open, doClose, title } = props
   return (
     <div
-      className={`modal fixed top-0 left-0 w-full h-full bg-[#00000090] z-10 ${
+      className={`modal fixed top-10 left-0 w-full h-full bg-[#00000090] z-10 ${
         open ? "scale-100" : "scale-0"
       }`}
       onClick={doClose}

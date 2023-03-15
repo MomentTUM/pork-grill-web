@@ -8,6 +8,7 @@ import { Navigate } from "react-router-dom"
 import ProtectedRouteCustomer from "../features/auth/ProtectedRouteCustomer"
 // import OrderPage from "../pages/Order"
 import PaymentPage from "../pages/Payment"
+import PaymentAdmin from "../pages/PaymentAdmin";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRouteAdmin>
         <AdminPage />
+      </ProtectedRouteAdmin>
+    ),
+  },
+  {
+    path: "/managePayment",
+    element: (
+      <ProtectedRouteAdmin>
+        <PaymentAdmin/>
       </ProtectedRouteAdmin>
     ),
   },
